@@ -1,13 +1,17 @@
-
+Rem
+bbdoc: Process Management
+End Rem
 Module PUB.FreeProcess
 
-ModuleInfo "Version: 1.03"
+ModuleInfo "Version: 1.04"
 ModuleInfo "Framework: FreeProcess multi platform external process control"
 ModuleInfo "License: zlib/libpng"
 ModuleInfo "Copyright: Blitz Research Ltd"
 ModuleInfo "Author: Simon Armstrong"
 ModuleInfo "Modserver: BRL"
 
+ModuleInfo "History: 1.04 Release"
+ModuleInfo "Added Documentation, Added Detach and Attach Process Functions"
 ModuleInfo "History: 1.03 Release"
 ModuleInfo "History: Changed fork() to vfork() and exit() to _exit() to fix more hangs."
 ModuleInfo "History: 1.02 Release"
@@ -127,6 +131,17 @@ Type TProcess
 	Field	handle
 	Field	pipe:TPipeStream
 	Field	err:TPipeStream
+	Field   detached:Int
+
+	Method Detach()
+		detached = True
+		Return 1
+	End Method
+	
+	Method Attach()
+		detached = False
+		Return 1
+	End Method
 
 	Method Status()
 		If handle 
@@ -165,7 +180,8 @@ Type TProcess
 		p.handle=fdProcess(p.name,Varptr infd,Varptr outfd,Varptr errfd,flags)
 		If Not p.handle Return Null
 		p.pipe=TPipeStream.Create(infd,outfd)
-		p.err=TPipeStream.Create(errfd,0)
+		p.err = TPipeStream.Create(errfd , 0)
+		p.detached = False 
 		If Not ProcessList ProcessList=New TList
 		ProcessList.AddLast p
 		Return p
@@ -182,22 +198,52 @@ Type TProcess
 	
 	Function TerminateAll() NoDebug
 		If Not ProcessList Return
-		For Local p:TProcess=EachIn ProcessList
-			p.Terminate
+		For Local p:TProcess = EachIn ProcessList
+			If p.detached = False Then 
+				p.Terminate
+			EndIf
 		Next
 		ProcessList=Null
 	End Function
 	
 End Type
 
+Rem
+bbdoc: Creates a process
+returns: TProcess value
+End Rem
 Function CreateProcess:TProcess(cmd$,flags=0)
 	Return TProcess.Create(cmd,flags)
 End Function
 
+Rem
+bbdoc: Checks status of program
+returns: 1 - still running, 0 - no longer running
+End Rem
 Function ProcessStatus(process:TProcess)
 	Return process.Status()
 End Function
 
+Rem
+bbdoc: Detaches a process from program
+returns: 1
+End Rem
+Function ProcessDetach(process:TProcess)
+	Return process.Detach()
+End Function
+
+Rem
+bbdoc: Reattaches a process from program
+returns: 1
+End Rem
+Function ProcessAttach(process:TProcess)
+	Return process.Attach()
+End Function
+
+Rem
+bbdoc: End Process
+returns: 1 - successful, 0 - failed
+End Rem
 Function TerminateProcess(process:TProcess)
 	Return process.Terminate()
 End Function

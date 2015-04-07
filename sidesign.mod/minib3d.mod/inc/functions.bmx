@@ -632,8 +632,10 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=EntityTexture">Online Help</a>
 End Rem
-Function EntityTexture(ent:TEntity,tex:TTexture,frame:Int=0,index:Int=0)
-	TMesh(ent).EntityTexture(tex:TTexture,frame,index)
+Function EntityTexture(ent:TEntity , tex:TTexture , frame:Int = 0 , index:Int = 0)
+	LockMutex(TTexture.Mutex_tex_list)
+	TMesh(ent).EntityTexture(tex:TTexture , frame , index)
+	UnlockMutex(TTexture.Mutex_tex_list)
 End Function
 
 Rem
@@ -872,6 +874,18 @@ bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=LoadTexture">
 End Rem
 Function LoadTexture:TTexture(file$,flags:Int=1)
 	Return TTexture.LoadTexture(file$,flags)
+End Function
+
+Function LoadPreloadedTexture:TTexture(file$ , flags:Int = 1)
+	Return TTexture.LoadPreloadedTexture(file$ , flags)
+End Function
+
+Function LoadTexturePixmap:TPixmapTexture(file$ , flags:Int = 1)
+	Return TPixmapTexture.LoadTexturePixmap(file$,flags)
+End Function
+
+Function LoadTextureFromPixmap:TTexture(file:TPixmapTexture)
+	Return TTexture.LoadTextureFromPixmap(file)
 End Function
 
 Rem
@@ -1367,7 +1381,7 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=VertexTexCoords">Online Help</a>
 End Rem
-Function VertexTexCoords:int(surf:TSurface,vid:Int,u#,v#,w#=0.0,coord_set:Int=0)
+Function VertexTexCoords:Int(surf:TSurface,vid:Int,u#,v#,w#=0.0,coord_set:Int=0)
 	Return surf.VertexTexCoords(vid,u#,v#,w#,coord_set)
 End Function
 

@@ -167,7 +167,7 @@ Type TGlobal
 		' anim
 	
 		Local first:Int
-		Local last:int
+		Local last:Int
 
 		For Local mesh:TEntity=EachIn TEntity.entity_list
 		
@@ -289,9 +289,10 @@ Type TGlobal
 	End Function
 
 	' Render camera - renders all meshes camera can see
-	Function RenderCamera(cam:TCamera)
+	Function RenderCamera(cam:TCamera, skip:Int=0)
 
-		cam.Update()
+		If (Not skip) cam.Update() ''this is the skip camera hack -NEW LINE
+		'cam.Update() '-OLD LINE
 	
 		For Local light:TLight=EachIn TLight.light_list
 	
