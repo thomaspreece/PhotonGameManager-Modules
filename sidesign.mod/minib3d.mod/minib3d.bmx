@@ -129,3 +129,9 @@ Const USE_VBO=True	' true to use vbos if supported by hardware
 Const VBO_MIN_TRIS=250	' if USE_VBO=True and vbos are supported by hardware, then surface must also have this minimum no. of tris before vbo is used for surface (vbos work best with surfaces with high amount of tris)
 Const LOG_NEW=False	' true to write to debuglog when new minib3d object created
 Const LOG_DEL=False	' true to write to debuglog when minib3d object destroyed
+
+Function LockMutex(obj:Object)
+End Function
+
+Function UnlockMutex(obj:Object)
+End function

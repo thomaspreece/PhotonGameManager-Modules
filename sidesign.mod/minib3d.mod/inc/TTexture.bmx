@@ -99,8 +99,13 @@ End Type
 Type TTexture
 
 	Global tex_list:TList = CreateList()
+	?Threaded
 	Global Mutex_tex_list:TMutex = CreateMutex()
-
+	
+	?Not Threaded
+	Global Mutex_tex_list:object
+	
+	?	
 	Field file$,flags:Int,blend:Int=2,coords:Int,u_scale#=1.0,v_scale#=1.0,u_pos#,v_pos#,angle#
 	Field file_abs$,width:Int,height:Int ' returned by Name/Width/Height commands
 	Field pixmap:TPixmap
