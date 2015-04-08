@@ -16,6 +16,9 @@ Import BRL.BMPLoader
 Import BRL.PNGLoader
 Import BRL.JPGLoader
 Import BRL.Retro
+?Threaded
+Import BRL.Threads
+?
 
 ' c++
 Import "inc/std.cpp"
@@ -134,4 +137,4 @@ Function LockMutex(obj:Object)
 End Function
 
 Function UnlockMutex(obj:Object)
-End function
+End Function
