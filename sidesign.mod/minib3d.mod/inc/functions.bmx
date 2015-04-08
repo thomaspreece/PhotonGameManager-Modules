@@ -92,8 +92,8 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=Animate">Online Help</a>
 End Rem
-Function Animate(ent:TEntity,mode:Int=1,speed#=1.0,seq:Int=0,trans:Int=0)
-	ent.Animate(mode:Int,speed#,seq:Int,trans:Int)
+Function Animate(ent:TEntity,Mode:Int=1,speed#=1.0,seq:Int=0,trans:Int=0)
+	ent.Animate(Mode:Int,speed#,seq:Int,trans:Int)
 End Function
 
 Rem
@@ -190,8 +190,8 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=CameraFogMode">Online Help</a>
 End Rem
-Function CameraFogMode(cam:TCamera,mode:Int)
-	cam.CameraFogMode(mode)
+Function CameraFogMode(cam:TCamera,Mode:Int)
+	cam.CameraFogMode(Mode)
 End Function
 
 Rem
@@ -218,8 +218,8 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=CameraProjMode">Online Help</a>
 End Rem
-Function CameraProjMode(cam:TCamera,mode:Int)
-	cam.CameraProjMode(mode)
+Function CameraProjMode(cam:TCamera,Mode:Int)
+	cam.CameraProjMode(Mode)
 End Function
 
 Rem
@@ -590,8 +590,8 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=EntityPick">Online Help</a>
 End Rem
-Function EntityPick:TEntity(ent:TEntity,range#)
-	Return TPick.EntityPick(ent,range#)
+Function EntityPick:TEntity(ent:TEntity,Range#)
+	Return TPick.EntityPick(ent,Range#)
 End Function
 
 Rem
@@ -633,9 +633,13 @@ Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=EntityTexture">Online Help</a>
 End Rem
 Function EntityTexture(ent:TEntity , tex:TTexture , frame:Int = 0 , index:Int = 0)
+?Threaded
 	LockMutex(TTexture.Mutex_tex_list)
+?
 	TMesh(ent).EntityTexture(tex:TTexture , frame , index)
+?Threaded	
 	UnlockMutex(TTexture.Mutex_tex_list)
+?
 End Function
 
 Rem
@@ -795,8 +799,8 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=Graphics3D">Online Help</a>
 End Rem
-Function Graphics3D(width:Int,height:Int,depth:Int=0,mode:Int=0,rate:Int=60,flags:Int=-1) 'SMALLFIXES added flags
-	TGlobal.Graphics3D(width,height,depth,mode,rate,flags)
+Function Graphics3D(width:Int,height:Int,depth:Int=0,Mode:Int=0,rate:Int=60,flags:Int=-1) 'SMALLFIXES added flags
+	TGlobal.Graphics3D(width,height,depth,Mode,rate,flags)
 End Function
 
 Rem
@@ -830,8 +834,8 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=LightRange">Online Help</a>
 End Rem
-Function LightRange(light:TLight,range#)
-	light.LightRange(range#)
+Function LightRange(light:TLight,Range#)
+	light.LightRange(Range#)
 End Function
 
 Rem
@@ -876,14 +880,23 @@ Function LoadTexture:TTexture(file$,flags:Int=1)
 	Return TTexture.LoadTexture(file$,flags)
 End Function
 
+Rem
+bbdoc: 
+End Rem
 Function LoadPreloadedTexture:TTexture(file$ , flags:Int = 1)
 	Return TTexture.LoadPreloadedTexture(file$ , flags)
 End Function
 
+Rem
+bbdoc: 
+End Rem
 Function LoadTexturePixmap:TPixmapTexture(file$ , flags:Int = 1)
 	Return TPixmapTexture.LoadTexturePixmap(file$,flags)
 End Function
 
+Rem
+bbdoc: 
+End Rem
 Function LoadTextureFromPixmap:TTexture(file:TPixmapTexture)
 	Return TTexture.LoadTextureFromPixmap(file)
 End Function
@@ -1157,8 +1170,8 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=SetCubeMode">Online Help</a>
 End Rem
-Function SetCubeMode(tex:TTexture,mode:Int)
-	tex.SetCubeMode(mode)
+Function SetCubeMode(tex:TTexture,Mode:Int)
+	tex.SetCubeMode(Mode)
 End Function
 
 Rem
@@ -1171,8 +1184,8 @@ End Function
 Rem
 bbdoc: <a href="http://www.blitzbasic.com/b3ddocs/command.php?name=SpriteViewMode">Online Help</a>
 End Rem	
-Function SpriteViewMode(sprite:TSprite,mode:Int)
-	sprite.SpriteViewMode(mode)
+Function SpriteViewMode(sprite:TSprite,Mode:Int)
+	sprite.SpriteViewMode(Mode)
 End Function
 
 Rem
@@ -1464,7 +1477,7 @@ End Function
 
 ' ***todo***
 
-Function LightMesh(mesh:TMesh,red#,green#,blue#,range#=0,light_x#=0,light_y#=0,light_z#=0)
+Function LightMesh(mesh:TMesh,red#,green#,blue#,Range#=0,light_x#=0,light_y#=0,light_z#=0)
 End Function
 Function MeshesIntersect(mesh1:TMesh,mesh2:TMesh)
 End Function

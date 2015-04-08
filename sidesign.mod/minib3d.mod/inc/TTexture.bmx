@@ -1,8 +1,8 @@
 Type TPixmapTexture Extends TTexture
-	'Global tex_pixlist:TList = CreateList()
 	Field MipPixmaps:TPixmap[]
 	
 	Function LoadTexturePixmap:TPixmapTexture(file$ , flags:Int = 1 , tex:TPixmapTexture = Null)
+		
 		If flags & 128 Then RuntimeError "Not Implimented"
 		If tex = Null Then tex:TPixmapTexture = New TPixmapTexture
 		
@@ -13,11 +13,14 @@ Type TPixmapTexture Extends TTexture
 		
 		tex.flags=flags
 		tex.FilterFlags()
-		
+	?Threaded	
 		LockMutex(Mutex_tex_list)
+	?	
 		Local old_tex:TTexture
 		old_tex = tex.TexInList()
+	?Threaded		
 		UnlockMutex(Mutex_tex_list)
+	?
 		
 		If old_tex <> Null
 			Return Null
@@ -53,7 +56,7 @@ Type TPixmapTexture Extends TTexture
 		Local height:Int = tex.pixmap.height
 		
 		Local MipPixmaps:TList = CreateList()
-		Local MipParams:TList = CreateList()
+		'Local MipParams:TList = CreateList()
 		
 		Local Pixmap:TPixmap = tex.pixmap
 		ListAddLast(MipPixmaps , Pixmap)
@@ -71,41 +74,24 @@ Type TPixmapTexture Extends TTexture
 
 		tex.MipPixmaps = TPixmap[](ListToArray(MipPixmaps) )
 		
+		ClearList(MipPixmaps)
+		MipPixmaps = Null 
+		
 		Return tex			
 	End Function	
-
-Rem
-	Method TexInPixList:TPixmapTexture()
-
-		' check if tex already exists in list and if so return it
-
-		For Local tex:TPixmapTexture=EachIn tex_pixlist
-			If file$=tex.file$ And flags=tex.flags And blend=tex.blend
-				If u_scale#=tex.u_scale# And v_scale#=tex.v_scale# And u_pos#=tex.u_pos# And v_pos#=tex.v_pos# And angle#=tex.angle#
-					Return tex
-				EndIf
-			EndIf
-		Next
-	
-		Return Null
-	
-	End Method
-endrem
 
 End Type
 
 
 
 Type TTexture
-
 	Global tex_list:TList = CreateList()
-	?Threaded
+	Global UsedSpace:Int = 0	
+?Threaded
 	Global Mutex_tex_list:TMutex = CreateMutex()
-	
-	?Not Threaded
-	Global Mutex_tex_list:object
-	
-	?	
+	Global Mutex_UsedSpace:TMutex = CreateMutex()
+?
+
 	Field file$,flags:Int,blend:Int=2,coords:Int,u_scale#=1.0,v_scale#=1.0,u_pos#,v_pos#,angle#
 	Field file_abs$,width:Int,height:Int ' returned by Name/Width/Height commands
 	Field pixmap:TPixmap
@@ -131,102 +117,35 @@ Type TTexture
 		EndIf
 	
 	End Method
-Rem	
-	Method FreeTexture()
-	
-		ListRemove(tex_list,Self)
-		pixmap=Null
-		cube_pixmap=Null
-		gltex=Null
-	
-	End Method
-EndRem	
+
 	Method FreeTexture() 'SMALLFIXES New function from http://www.blitzbasic.com/Community/posts.php?topic=88263#1002039
+	?Threaded	
 		LockMutex(Mutex_tex_list)
+	?
 		ListRemove(tex_list , Self)
 		pixmap=Null
 		cube_pixmap=Null
+	?Threaded	
+		LockMutex(Mutex_UsedSpace)
+	?
+		UsedSpace = UsedSpace - (5*3*width*height)/8
+	?Threaded			
+		UnlockMutex(Mutex_UsedSpace)
+	?
+		
 		
 		For Local name:Int = EachIn gltex
 			glDeleteTextures 1, Varptr name
 		Next
 		gltex = Null
+	?Threaded	
 		UnlockMutex(Mutex_tex_list)	
+	?
 	End Method
 	
 	Function CreateTexture:TTexture(width:Int,height:Int,flags:Int=1,frames:Int=1,tex:TTexture=Null)
 		RuntimeError "Not Implimented"
 	End Function
-Rem	
-	Function CreateTexture:TTexture(width:Int,height:Int,flags:Int=1,frames:Int=1,tex:TTexture=Null)
-	
-		If flags&128 Then Return CreateCubeMapTexture(width,height,flags,tex)
-		
-		If tex = Null Then tex:TTexture = New TTexture 
-		LockMutex(Mutex_tex_list)
-		ListAddLast(tex_list , tex)
-		UnlockMutex(Mutex_tex_list)
-		
-		tex.pixmap=CreatePixmap(width*frames,height,PF_RGBA8888)
-
-		' ---
-		
-		tex.flags=flags
-		'tex.FilterFlags() ' not needed in CreateTexture
-				
-		tex.no_frames=frames
-		tex.gltex=tex.gltex[..tex.no_frames]
-
-		' ---
-		
-		' pixmap -> tex
-			
-		Local x:Int=0
-	
-		Local pixmap:TPixmap
-	
-		For Local i:Int=0 To tex.no_frames-1
-	
-			pixmap=tex.pixmap.Window(x*width,0,width,height)
-			x=x+1
-		
-			' ---
-		
-			pixmap=AdjustPixmap(pixmap)
-			tex.width=pixmap.width
-			tex.height=pixmap.height
-			Local width:Int=pixmap.width
-			Local height:Int=pixmap.height
-
-			Local name:Int
-			glGenTextures 1,Varptr name
-			glBindTexture GL_TEXTURE_2D,name
-
-			Local mipmap:Int
-			If tex.flags&8 Then mipmap=True
-			Local mip_level:Int=0
-			Repeat
-				'glPixelStorei GL_UNPACK_ROW_LENGTH,pixmap.pitch/BytesPerPixel[pixmap.format] 'BAD LINE!
-    				glPixelStorei 2,pixmap.pitch/BytesPerPixel[pixmap.format]    'SMALLFIXES http://www.blitzmax.com/Community/posts.php?topic=87020
-				glTexImage2D GL_TEXTURE_2D,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-				If Not mipmap Then Exit
-				If width=1 And height=1 Exit
-				If width>1 width:/2
-				If height>1 height:/2
-
-				pixmap=ResizePixmap(pixmap,width,height)
-				mip_level:+1
-			Forever
-			tex.no_mipmaps=mip_level
-
-			tex.gltex[i]=name
-	
-		Next
-		
-		Return tex
-
-	End Function
-endrem
 
 	Function LoadTextureFromPixmap:TTexture(texPixmap:TPixmapTexture)
 		If texPixmap = Null Then Return Null
@@ -234,15 +153,21 @@ endrem
 		Local tex:TTexture = TTexture(texPixmap)
 		
 		Local old_tex:TTexture
+	?Threaded	
 		LockMutex(Mutex_tex_list)
+	?
 		old_tex=tex.TexInList()
 		If old_tex <> Null And old_tex <> tex
+	?Threaded		
 			UnlockMutex(Mutex_tex_list)	
+	?
 			Return Null 
 		EndIf
+	?Threaded	
 		UnlockMutex(Mutex_tex_list)
+	?
 		
-		Local pixmap:TPixmap
+		'Local pixmap:TPixmap
 		
 		Local width:Int=tex.width
 		Local height:Int=tex.height
@@ -257,10 +182,15 @@ endrem
 		Local mipmap:Int
 		If tex.flags&8 Then mipmap=True
 		Local mip_level:Int=0
+	?Threaded	
+		LockMutex(Mutex_UsedSpace)
+	?
 		Repeat
-			pixmap=texPixmap.MipPixmaps[mip_level]
-			glPixelStorei GL_UNPACK_ROW_LENGTH,Pixmap.pitch/BytesPerPixel[Pixmap.format]
-			glTexImage2D GL_TEXTURE_2D,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
+			'pixmap=texPixmap.MipPixmaps[mip_level]
+			glPixelStorei GL_UNPACK_ROW_LENGTH,texPixmap.MipPixmaps[mip_level].pitch/BytesPerPixel[texPixmap.MipPixmaps[mip_level].format]
+			glTexImage2D GL_TEXTURE_2D,mip_level,GL_RGB5,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,texPixmap.MipPixmaps[mip_level].pixels
+			
+			UsedSpace = UsedSpace + (5*3*width*height)/8
 			If Not mipmap Then Exit
 			If width=1 And height=1 Exit
 			If width>1 width:/2
@@ -269,6 +199,9 @@ endrem
 			
 			mip_level:+1
 		Forever
+	?Threaded	
+		UnlockMutex(Mutex_UsedSpace)
+	?
 		tex.no_mipmaps=mip_level
 
 		tex.gltex[0] = name
@@ -276,14 +209,17 @@ endrem
 		texPixmap.MipPixmaps = Null
 		texPixmap.pixmap = Null
 		tex.pixmap = Null
-		
+	?Threaded	
 		LockMutex(Mutex_tex_list)
+	?
 		ListAddLast(tex_list , tex)	
+	?Threaded	
 		UnlockMutex(Mutex_tex_list)	
+	?
 		Return tex
 		
 	End Function
-
+	
 	Function LoadPreloadedTexture:TTexture(file$ , flags:Int = 1)
 		If flags&128 Then RuntimeError "Not Implimented"
 	
@@ -295,14 +231,14 @@ endrem
 		' set tex.flags before TexInList
 		tex.flags=flags
 		tex.FilterFlags()
-		
+	?Threaded	
 		LockMutex(Mutex_tex_list)
-		
+	?	
 		Local old_tex:TTexture
 		old_tex = tex.TexInList()
-		
+	?Threaded	
 		UnlockMutex(Mutex_tex_list)
-	
+	?
 		If old_tex <> Null And old_tex <> tex
 			Return old_tex
 		Else
@@ -319,340 +255,19 @@ endrem
 			ATex = LoadPreloadedTexture(file$,flags)
 			Return ATex
 	End Function
-Rem
-	Function LoadTexture:TTexture(file$,flags:Int=1,tex:TTexture=Null)
-	
-		Return LoadAnimTexture:TTexture(file$,flags,0,0,0,1,tex)
-	
-	End Function
-endrem
 
 	Function LoadAnimTexture:TTexture(file$,flags:Int,frame_width:Int,frame_height:Int,first_frame:Int,frame_count:Int,tex:TTexture=Null)
 			RuntimeError "Not Implimented"
 	End Function	
-Rem
-	Function LoadAnimTexture:TTexture(file$,flags:Int,frame_width:Int,frame_height:Int,first_frame:Int,frame_count:Int,tex:TTexture=Null)
-		If flags&128 Then RuntimeError "Not Implimented"'Return LoadCubeMapTexture(file$,flags,tex)
-	
-		If tex=Null Then tex:TTexture=New TTexture
 
-		If FileFind(file$)=False Then Return Null
-		
-		tex.file$=file$
-		tex.file_abs$=FileAbs$(file$)
-		
-		' set tex.flags before TexInList
-		tex.flags=flags
-		tex.FilterFlags()
-		
-		' check to see if texture with same properties exists already, if so return existing texture
-		LockMutex(Mutex_tex_list)
-
-		Local old_tex:TTexture
-		old_tex=tex.TexInList()
-		If old_tex <> Null And old_tex <> tex
-			UnlockMutex(Mutex_tex_list)	
-			Return old_tex
-		EndIf
-		UnlockMutex(Mutex_tex_list)
-
-
-		' load pixmap
-		tex.pixmap = LoadPixmap(file$)
-		tex.pixWidth = tex.pixmap.width
-		tex.pixHeight = tex.pixmap.height
-		
-		' check to see if pixmap contain alpha layer, set alpha_present to true if so (do this before converting)
-		Local alpha_present:Int=False
-		If tex.pixmap.format=PF_RGBA8888 Or tex.pixmap.format=PF_BGRA8888 Or tex.pixmap.format=PF_A8 Then alpha_present=True
-
-		' convert pixmap to appropriate format
-		If tex.pixmap.format<>PF_RGBA8888
-			tex.pixmap=tex.pixmap.Convert(PF_RGBA8888)
-		EndIf
-		
-		' if alpha flag is true and pixmap doesn't contain alpha info, apply alpha based on color values
-		If tex.flags&2 And alpha_present=False
-			tex.pixmap=ApplyAlpha(tex.pixmap)
-		EndIf		
-
-		' if mask flag is true, mask pixmap
-		If tex.flags&4
-			tex.pixmap=MaskPixmap(tex.pixmap,0,0,0)
-		EndIf
-		
-		' ---
-		
-		' if tex not anim tex, get frame width and height
-		If frame_width=0 And frame_height=0
-			frame_width=tex.pixmap.width
-			frame_height=tex.pixmap.height
-		EndIf
-		
-
-		' ---
-		
-		tex.no_frames=frame_count
-		tex.gltex=tex.gltex[..tex.no_frames]
-
-		' ---
-		
-		' pixmap -> tex
-
-		Local xframes:Int=tex.pixmap.width/frame_width
-		Local yframes:Int=tex.pixmap.height/frame_height
-			
-		Local startx:Int=first_frame Mod xframes
-		Local starty:Int=(first_frame/yframes) Mod yframes
-			
-		Local x:Int=startx
-		Local y:Int=starty
-	
-		Local pixmap:TPixmap
-	
-		For Local i:Int=0 To tex.no_frames-1
-	
-			' get static pixmap window. when resize pixmap is called new pixmap will be returned.
-			pixmap=tex.pixmap.Window(x*frame_width,y*frame_height,frame_width,frame_height)
-			x=x+1
-			If x>=xframes
-				x=0
-				y=y+1
-			EndIf
-		
-			' ---
-		
-			pixmap=AdjustPixmap(pixmap)
-			tex.width=pixmap.width
-			tex.height=pixmap.height
-			Local width:Int=pixmap.width
-			Local height:Int=pixmap.height
-
-			Local name:Int
-			glGenTextures 1,Varptr name
-			glBindTexture GL_TEXTURE_2D,name
-
-			Local mipmap:Int
-			If tex.flags&8 Then mipmap=True
-			Local mip_level:Int=0
-			Repeat
-				glPixelStorei GL_UNPACK_ROW_LENGTH,pixmap.pitch/BytesPerPixel[pixmap.format]
-				glTexImage2D GL_TEXTURE_2D,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-				If Not mipmap Then Exit
-				If width=1 And height=1 Exit
-				If width>1 width:/2
-				If height>1 height:/2
-
-				pixmap=ResizePixmap(pixmap,width,height)
-				mip_level:+1
-			Forever
-			tex.no_mipmaps=mip_level
-
-			tex.gltex[i]=name
-	
-		Next
-		LockMutex(Mutex_tex_list)
-		If old_tex<>tex
-			ListAddLast(tex_list,tex)
-		EndIf
-		UnlockMutex(Mutex_tex_list)
-		Return tex
-		
-	End Function
-EndRem
 	Function CreateCubeMapTexture:TTexture(width:Int,height:Int,flags:Int,tex:TTexture=Null)
 		RuntimeError "Not Implimented"
 	End Function
-Rem
-	Function CreateCubeMapTexture:TTexture(width:Int,height:Int,flags:Int,tex:TTexture=Null)
-		
-		If tex = Null Then tex:TTexture = New TTexture 
-		?Threaded
-			LockMutex(Mutex_tex_list)
-		?
-		ListAddLast(tex_list,tex)
-		?Threaded
-			UnlockMutex(Mutex_tex_list)
-		?
-		tex.pixmap=CreatePixmap(width*6,height,PF_RGBA8888)
-		
-		' ---
-		
-		tex.flags=flags
-		'tex.FilterFlags() ' not needed in CreateCubeMapTexture
-				
-		tex.no_frames=1'frame_count
-		'tex.gltex=tex.gltex[..tex.no_frames]
 
-		' ---
-		
-		' pixmap -> tex
-				
-		Local name:Int
-		glGenTextures 1,Varptr name
-		glBindTexture GL_TEXTURE_CUBE_MAP,name
-	
-		Local pixmap:TPixmap
-	
-		For Local i:Int=0 To 5
-		
-			pixmap=tex.pixmap.Window(width*i,0,width,height)
-
-			' ---
-		
-			pixmap=AdjustPixmap(pixmap)
-			tex.width=pixmap.width
-			tex.height=pixmap.height
-			Local width:Int=pixmap.width
-			Local height:Int=pixmap.height
-
-			Local mipmap:Int
-			'If tex.flags&8 Then mipmap=True ***note*** prevent mipmaps being created for cubemaps - they are not used by TMesh.Update, so we don't need to create them
-			Local mip_level:Int=0
-			Repeat
-				glPixelStorei GL_UNPACK_ROW_LENGTH,pixmap.pitch/BytesPerPixel[pixmap.format]
-				Select i
-					Case 0 glTexImage2D GL_TEXTURE_CUBE_MAP_NEGATIVE_X,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 1 glTexImage2D GL_TEXTURE_CUBE_MAP_POSITIVE_Z,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 2 glTexImage2D GL_TEXTURE_CUBE_MAP_POSITIVE_X,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 3 glTexImage2D GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 4 glTexImage2D GL_TEXTURE_CUBE_MAP_POSITIVE_Y,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 5 glTexImage2D GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-				End Select
-				If Not mipmap Then Exit
-				If width=1 And height=1 Exit
-				If width>1 width:/2
-				If height>1 height:/2
-
-				pixmap=ResizePixmap(pixmap,width,height)
-				mip_level:+1
-			Forever
-			tex.no_mipmaps=mip_level
-			
-		Next
-		
-		tex.gltex[0]=name
-		
-		Return tex
-		
-	End Function
-endrem
 	Function LoadCubeMapTexture:TTexture(file$,flags:Int=1,tex:TTexture=Null)
 		RuntimeError "Not Implimented"
 	End Function
-Rem
-	Function LoadCubeMapTexture:TTexture(file$,flags:Int=1,tex:TTexture=Null)
-		
-		If tex=Null Then tex:TTexture=New TTexture
-		
-		If FileFind(file$)=False Then Return Null
-		
-		tex.file$=file$
-		tex.file_abs$=FileAbs$(file$)
-		
-		' set tex.flags before TexInList
-		tex.flags=flags
-		tex.FilterFlags()
-		
-		' check to see if texture with same properties exists already, if so return existing texture
-		?Threaded
-			LockMutex(Mutex_tex_list)
-		?		
-		Local old_tex:TTexture
-		old_tex=tex.TexInList()
-		If old_tex <> Null And old_tex <> tex
-			?Threaded
-				UnlockMutex(Mutex_tex_list)
-			?			
-			Return old_tex
-		Else
-			If old_tex<>tex
-				ListAddLast(tex_list,tex)
-			EndIf
-		EndIf
-		?Threaded
-			UnlockMutex(Mutex_tex_list)
-		?
-		' load pixmap
-		tex.pixmap=LoadPixmap(file$)
-		
-		' check to see if pixmap contain alpha layer, set alpha_present to true if so (do this before converting)
-		Local alpha_present:Int=False
-		If tex.pixmap.format=PF_RGBA8888 Or tex.pixmap.format=PF_BGRA8888 Or tex.pixmap.format=PF_A8 Then alpha_present=True
 
-		' convert pixmap to appropriate format
-		If tex.pixmap.format<>PF_RGBA8888
-			tex.pixmap=tex.pixmap.Convert(PF_RGBA8888)
-		EndIf
-		
-		' if alpha flag is true and pixmap doesn't contain alpha info, apply alpha based on color values
-		If tex.flags&2 And alpha_present=False
-			tex.pixmap=ApplyAlpha(tex.pixmap)
-		EndIf		
-
-		' if mask flag is true, mask pixmap
-		If tex.flags&4
-			tex.pixmap=MaskPixmap(tex.pixmap,0,0,0)
-		EndIf
-		
-		' ---
-						
-		tex.no_frames=1'frame_count
-		'tex.gltex=tex.gltex[..tex.no_frames]
-		
-		' ---
-		
-		' pixmap -> tex
-			
-		Local name:Int
-		glGenTextures 1,Varptr name
-		glBindTexture GL_TEXTURE_CUBE_MAP,name
-	
-		Local pixmap:TPixmap
-	
-		For Local i:Int=0 To 5
-		
-			pixmap=tex.pixmap.Window((tex.pixmap.width/6)*i,0,tex.pixmap.width/6,tex.pixmap.height)
-
-			' ---
-		
-			pixmap=AdjustPixmap(pixmap)
-			tex.width=pixmap.width
-			tex.height=pixmap.height
-			Local width:Int=pixmap.width
-			Local height:Int=pixmap.height
-
-			Local mipmap:Int
-			'If tex.flags&8 Then mipmap=True ***note*** prevent mipmaps being created for cubemaps - they are not used by TMesh.Update, so we don't need to create them
-			Local mip_level:Int=0
-			Repeat
-				glPixelStorei GL_UNPACK_ROW_LENGTH,pixmap.pitch/BytesPerPixel[pixmap.format]
-				Select i
-					Case 0 glTexImage2D GL_TEXTURE_CUBE_MAP_NEGATIVE_X,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 1 glTexImage2D GL_TEXTURE_CUBE_MAP_POSITIVE_Z,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 2 glTexImage2D GL_TEXTURE_CUBE_MAP_POSITIVE_X,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 3 glTexImage2D GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 4 glTexImage2D GL_TEXTURE_CUBE_MAP_POSITIVE_Y,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-					Case 5 glTexImage2D GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,mip_level,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,pixmap.pixels
-				End Select
-				If Not mipmap Then Exit
-				If width=1 And height=1 Exit
-				If width>1 width:/2
-				If height>1 height:/2
-
-				pixmap=ResizePixmap(pixmap,width,height)
-				mip_level:+1
-			Forever
-			tex.no_mipmaps=mip_level
-			
-		Next
-		
-		tex.gltex[0]=name
-	
-		Return tex
-
-	End Function
-endrem
 	Method TextureBlend(blend_no:Int)
 		
 		blend=blend_no
@@ -728,8 +343,8 @@ endrem
 		cube_face=face
 	End Method
 	
-	Method SetCubeMode(mode:Int)
-		cube_mode=mode
+	Method SetCubeMode(Mode:Int)
+		cube_mode=Mode
 	End Method
 	
 	Method BackBufferToTex(mipmap_no:Int=0,frame:Int=0)

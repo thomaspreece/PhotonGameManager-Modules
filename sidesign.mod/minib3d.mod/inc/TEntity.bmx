@@ -556,14 +556,12 @@ Type TEntity
 	End Method
 
 	Method EntityTexture(texture:TTexture,frame:Int=0,index:Int=0)
-
 		brush.tex[index]=texture
 		If index+1>brush.no_texs Then brush.no_texs=index+1
 		
 		If frame<0 Then frame=0
 		If frame>texture.no_frames-1 Then frame=texture.no_frames-1 
 		brush.tex_frame=frame
-	
 	End Method
 	
 	Method EntityBlend(blend_no:Int)
@@ -1483,7 +1481,7 @@ Type TEntity
 
 	End Method
 	
-	Function CountAllChildren:int(ent:TEntity,no_children:Int=0)
+	Function CountAllChildren:Int(ent:TEntity,no_children:Int=0)
 		
 		Local ent2:TEntity
 	

@@ -1461,7 +1461,7 @@ Type TMesh Extends TEntity
 	' this func is used in MeshListAdd to see whether entity should be manually depth sorted (if alpha=true then yes).
 	' alpha_enable true/false is also set for surfaces - this is used to sort alpha surfaces and enable/disable alpha blending 
 	' in TMesh.Update.
-	Method Alpha:int()
+	Method Alpha:Int()
 	
 		' ***note*** func doesn't taken into account fact that surf brush blend modes override master brush blend mode
 		' when rendering. shouldn't be a problem, as will only incorrectly return true if master brush blend is 2 or 3,
@@ -1784,7 +1784,7 @@ Type TMesh Extends TEntity
 						glClientActiveTextureARB(GL_TEXTURE0+ix)
 					EndIf
 					glEnable(GL_TEXTURE_2D)
-					glBindTexture(GL_TEXTURE_2D,texture.gltex[frame]) ' call before glTexParameteri
+					glBindTexture(GL_TEXTURE_2D , texture.gltex[frame]) ' call before glTexParameteri
 
 					' masked texture flag
 					If tex_flags&4<>0
