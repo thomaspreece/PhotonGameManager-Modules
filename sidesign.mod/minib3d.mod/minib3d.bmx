@@ -12,9 +12,11 @@ Strict
 Import BRL.GLMax2D
 Import BRL.GLGraphics
 Import PUB.Glew
-Import BRL.BMPLoader
-Import BRL.PNGLoader
-Import BRL.JPGLoader
+'Changed from BRL to Freeimage
+Import Bah.freeimage
+'Import BRL.BMPLoader
+'Import BRL.PNGLoader
+'Import BRL.JPGLoader
 Import BRL.Retro
 ?Threaded
 	Import BRL.Threads
