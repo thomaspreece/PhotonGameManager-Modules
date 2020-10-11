@@ -1,0 +1,1110 @@
+<html><head><title>LuaJIT 2.0 Core reference</title>
+<link rel=stylesheet Type=text/css href='../../../../doc/bmxstyle.css'>
+</head><body>
+<table width=100% cellspacing=0><tr align=center><td class=small>&nbsp;</td>
+<td class=small width=1%><b>zeke.luajit2:</b></td>
+<td class=small width=1%><a href=#functions class=small>Functions</a></td>
+<td class=small width=1%><a href=#modinfo class=small>Modinfo</a></td>
+<td class=small width=1%><a href='../../../../mod/zeke.mod/luajit2.mod/luajit2.bmx' class=small>Source</a></td>
+<td class=small>&nbsp;</td></tr></table>
+<h1>LuaJIT 2.0 Core</h1>
+<h2><a name=functions></a>Functions Summary</h2><table class=doc width=100%>
+<tr><td class=docleft width=1%><a href=#lua_atpanic>lua_atpanic</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_atpanic">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_call>lua_call</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_call">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_checkstack>lua_checkstack</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_checkstack">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_close>lua_close</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_close">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_concat>lua_concat</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_concat">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_cpcall>lua_cpcall</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_cpcall">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_createtable>lua_createtable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_createtable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_dump>lua_dump</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_dump">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_equal>lua_equal</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_equal">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_error>lua_error</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_error">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_gc>lua_gc</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gc">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getallocf>lua_getallocf</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getallocf">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getfenv>lua_getfenv</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getfenv">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getfield>lua_getfield</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getfield">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getglobal>lua_getglobal</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getglobal">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_gethook>lua_gethook</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gethook">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_gethookcount>lua_gethookcount</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gethookcount">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_gethookmask>lua_gethookmask</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gethookmask">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getinfo>lua_getinfo</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getinfo">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getlocal>lua_getlocal</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getlocal">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getmetatable>lua_getmetatable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getmetatable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getstack>lua_getstack</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getstack">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_gettable>lua_gettable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gettable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_gettop>lua_gettop</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gettop">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_getupvalue>lua_getupvalue</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getupvalue">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_insert>lua_insert</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_insert">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isboolean>lua_isboolean</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isboolean">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_iscfunction>lua_iscfunction</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_iscfunction">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isfunction>lua_isfunction</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isfunction">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_islightuserdata>lua_islightuserdata</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_islightuserdata">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isnil>lua_isnil</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isnil">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isnone>lua_isnone</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isnone">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isnoneornil>lua_isnoneornil</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isnoneornil">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isnumber>lua_isnumber</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isnumber">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isstring>lua_isstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_istable>lua_istable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_istable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isthread>lua_isthread</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isthread">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_isuserdata>lua_isuserdata</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isuserdata">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_lessthan>lua_lessthan</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_lessthan">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_load>lua_load</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_load">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_newstate>lua_newstate</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_newstate">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_newtable>lua_newtable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_newtable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_newthread>lua_newthread</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_newthread">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_newuserdata>lua_newuserdata</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_newuserdata">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_next>lua_next</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_next">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_objlen>lua_objlen</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_objlen">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pcall>lua_pcall</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pcall">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pop>lua_pop</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pop">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushboolean>lua_pushboolean</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushboolean">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushcclosure>lua_pushcclosure</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushcclosure">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushcfunction>lua_pushcfunction</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushcfunction">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushinteger>lua_pushinteger</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushinteger">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushlightuserdata>lua_pushlightuserdata</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushlightuserdata">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushlstring>lua_pushlstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushlstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushnil>lua_pushnil</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushnil">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushnumber>lua_pushnumber</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushnumber">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushstring>lua_pushstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushthread>lua_pushthread</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushthread">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_pushvalue>lua_pushvalue</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushvalue">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_rawequal>lua_rawequal</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawequal">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_rawget>lua_rawget</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawget">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_rawgeti>lua_rawgeti</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawgeti">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_rawset>lua_rawset</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawset">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_rawseti>lua_rawseti</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawseti">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_register>lua_register</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_register">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_remove>lua_remove</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_remove">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_replace>lua_replace</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_replace">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_resume>lua_resume</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_resume">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_setallocf>lua_setallocf</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setallocf">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_setfenv>lua_setfenv</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setfenv">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_setfield>lua_setfield</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setfield">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_setglobal>lua_setglobal</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setglobal">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_sethook>lua_sethook</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_sethook">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_setlocal>lua_setlocal</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setlocal">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_setmetatable>lua_setmetatable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setmetatable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_settable>lua_settable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_settable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_settop>lua_settop</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_settop">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_setupvalue>lua_setupvalue</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setupvalue">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_status>lua_status</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_status">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_toboolean>lua_toboolean</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_toboolean">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_tocfunction>lua_tocfunction</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tocfunction">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_tointeger>lua_tointeger</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tointeger">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_tolstring>lua_tolstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tolstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_tonumber>lua_tonumber</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tonumber">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_topointer>lua_topointer</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_topointer">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_tostring>lua_tostring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tostring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_tothread>lua_tothread</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tothread">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_touserdata>lua_touserdata</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_touserdata">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_type>lua_type</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_type">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_typename>lua_typename</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_typename">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_xmove>lua_xmove</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_xmove">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#lua_yield>lua_yield</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_yield">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_addchar>luaL_addchar</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addchar">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_addlstring>luaL_addlstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addlstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_addsize>luaL_addsize</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addsize">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_addstring>luaL_addstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_addvalue>luaL_addvalue</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addvalue">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_argcheck>luaL_argcheck</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_argcheck">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_argerror>luaL_argerror</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_argerror">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_buffinit>luaL_buffinit</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_buffinit">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_callmeta>luaL_callmeta</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_callmeta">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checkany>luaL_checkany</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkany">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checkint>luaL_checkint</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkint">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checkinteger>luaL_checkinteger</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkinteger">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checklong>luaL_checklong</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checklong">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checklstring>luaL_checklstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checklstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checknumber>luaL_checknumber</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checknumber">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checkstack>luaL_checkstack</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkstack">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checkstring>luaL_checkstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checktype>luaL_checktype</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checktype">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_checkudata>luaL_checkudata</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkudata">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_dofile>luaL_dofile</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_dofile">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_dostring>luaL_dostring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_dostring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_getmetafield>luaL_getmetafield</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_getmetafield">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_getmetatable>luaL_getmetatable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_getmetatable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_gsub>luaL_gsub</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_gsub">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_loadbuffer>luaL_loadbuffer</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_loadbuffer">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_loadfile>luaL_loadfile</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_loadfile">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_loadstring>luaL_loadstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_loadstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_newmetatable>luaL_newmetatable</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_newmetatable">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_newstate>luaL_newstate</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_newstate">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_openlibs>luaL_openlibs</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_openlibs">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_optint>luaL_optint</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optint">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_optinteger>luaL_optinteger</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optinteger">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_optlong>luaL_optlong</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optlong">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_optlstring>luaL_optlstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optlstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_optnumber>luaL_optnumber</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optnumber">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_optstring>luaL_optstring</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optstring">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_prepbuffer>luaL_prepbuffer</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_prepbuffer">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_pushresult>luaL_pushresult</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_pushresult">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_ref>luaL_ref</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_ref">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_register>luaL_register</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_register">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_typename>luaL_typename</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_typename">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_typerror>luaL_typerror</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_typerror">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_unref>luaL_unref</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_unref">Lua Reference Manual</a>
+</td></tr>
+<tr><td class=docleft width=1%><a href=#luaL_where>luaL_where</a></td><td class=docright>
+see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_where">Lua Reference Manual</a>
+</td></tr>
+</table>
+<h2
+ id=functionsdet>Functions
+</h2>
+<table class=doc width=100% cellspacing=3 id=lua_atpanic>
+<tr><td class=doctop colspan=2>Function lua_atpanic:Byte Ptr (lua_state:Byte Ptr, panicf:Int(ls:Byte Ptr))</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_atpanic">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_call>
+<tr><td class=doctop colspan=2>Function lua_call (lua_state:Byte Ptr, nargs:Int, nresults:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_call">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_checkstack>
+<tr><td class=doctop colspan=2>Function lua_checkstack:Int (lua_state:Byte Ptr, extra:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_checkstack">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_close>
+<tr><td class=doctop colspan=2>Function lua_close (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_close">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_concat>
+<tr><td class=doctop colspan=2>Function lua_concat (lua_state:Byte Ptr, n:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_concat">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_cpcall>
+<tr><td class=doctop colspan=2>Function lua_cpcall:Int (lua_state:Byte Ptr, func:Int(ls:Byte Ptr), ud:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_cpcall">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_createtable>
+<tr><td class=doctop colspan=2>Function lua_createtable (lua_state:Byte Ptr, narr:Int, nrec:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_createtable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_dump>
+<tr><td class=doctop colspan=2>Function lua_dump:Int (lua_state:Byte Ptr, writer:Int(ls:Byte Ptr,p:Byte Ptr,sz:Int,ud:Byte Ptr), data:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_dump">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_equal>
+<tr><td class=doctop colspan=2>Function lua_equal:Int (lua_state:Byte Ptr, index1:Int, index2:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_equal">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_error>
+<tr><td class=doctop colspan=2>Function lua_error:Int (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_error">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_gc>
+<tr><td class=doctop colspan=2>Function lua_gc:Int (lua_state:Byte Ptr, what:Int, data:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gc">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getallocf>
+<tr><td class=doctop colspan=2>Function lua_getallocf:Byte Ptr (lua_state:Byte Ptr, ud:Byte Ptr Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getallocf">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getfenv>
+<tr><td class=doctop colspan=2>Function lua_getfenv (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getfenv">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getfield>
+<tr><td class=doctop colspan=2>Function lua_getfield (lua_state:Byte Ptr, index:Int, k$z)              ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getfield">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getglobal>
+<tr><td class=doctop colspan=2>Function lua_getglobal (lua_state:Byte Ptr, name:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getglobal">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_gethook>
+<tr><td class=doctop colspan=2>Function lua_gethook:Byte Ptr (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gethook">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_gethookcount>
+<tr><td class=doctop colspan=2>Function lua_gethookcount:Int (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gethookcount">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_gethookmask>
+<tr><td class=doctop colspan=2>Function lua_gethookmask:Int (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gethookmask">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getinfo>
+<tr><td class=doctop colspan=2>Function lua_getinfo:Int (lua_state:Byte Ptr, what$z, ar:lua_Debug Ptr)    ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getinfo">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getlocal>
+<tr><td class=doctop colspan=2>Function lua_getlocal$z (lua_state:Byte Ptr, ar:lua_Debug Ptr, n:Int)     ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getlocal">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getmetatable>
+<tr><td class=doctop colspan=2>Function lua_getmetatable:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getmetatable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getstack>
+<tr><td class=doctop colspan=2>Function lua_getstack:Int (lua_state:Byte Ptr, level:Int, ar:lua_Debug Ptr) ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getstack">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_gettable>
+<tr><td class=doctop colspan=2>Function lua_gettable (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gettable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_gettop>
+<tr><td class=doctop colspan=2>Function lua_gettop:Int (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_gettop">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_getupvalue>
+<tr><td class=doctop colspan=2>Function lua_getupvalue$z (lua_state:Byte Ptr, funcindex:Int, n:Int)        ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_getupvalue">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_insert>
+<tr><td class=doctop colspan=2>Function lua_insert (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_insert">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isboolean>
+<tr><td class=doctop colspan=2>Function lua_isboolean:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isboolean">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_iscfunction>
+<tr><td class=doctop colspan=2>Function lua_iscfunction:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_iscfunction">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isfunction>
+<tr><td class=doctop colspan=2>Function lua_isfunction:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isfunction">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_islightuserdata>
+<tr><td class=doctop colspan=2>Function lua_islightuserdata:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_islightuserdata">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isnil>
+<tr><td class=doctop colspan=2>Function lua_isnil:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isnil">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isnone>
+<tr><td class=doctop colspan=2>Function lua_isnone:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isnone">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isnoneornil>
+<tr><td class=doctop colspan=2>Function lua_isnoneornil:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isnoneornil">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isnumber>
+<tr><td class=doctop colspan=2>Function lua_isnumber:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isnumber">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isstring>
+<tr><td class=doctop colspan=2>Function lua_isstring:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_istable>
+<tr><td class=doctop colspan=2>Function lua_istable:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_istable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isthread>
+<tr><td class=doctop colspan=2>Function lua_isthread:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isthread">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_isuserdata>
+<tr><td class=doctop colspan=2>Function lua_isuserdata:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_isuserdata">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_lessthan>
+<tr><td class=doctop colspan=2>Function lua_lessthan:Int (lua_state:Byte Ptr, index1:Int, index2:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_lessthan">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_load>
+<tr><td class=doctop colspan=2>Function lua_load:Int (lua_state:Byte Ptr, reader:Byte Ptr(ls:Byte Ptr,data:Byte Ptr,sz:Int Ptr), data:Byte Ptr, chunkname$z) ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_load">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_newstate>
+<tr><td class=doctop colspan=2>Function lua_newstate:Byte Ptr (f:Byte Ptr(ud:Byte Ptr, p:Byte Ptr, osize:Int, nsize:Int), ud:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_newstate">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_newtable>
+<tr><td class=doctop colspan=2>Function lua_newtable (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_newtable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_newthread>
+<tr><td class=doctop colspan=2>Function lua_newthread:Byte Ptr (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_newthread">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_newuserdata>
+<tr><td class=doctop colspan=2>Function lua_newuserdata:Byte Ptr (lua_state:Byte Ptr, size:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_newuserdata">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_next>
+<tr><td class=doctop colspan=2>Function lua_next:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_next">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_objlen>
+<tr><td class=doctop colspan=2>Function lua_objlen:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_objlen">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pcall>
+<tr><td class=doctop colspan=2>Function lua_pcall:Int (lua_state:Byte Ptr, nargs:Int, nresults:Int, errfunc:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pcall">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pop>
+<tr><td class=doctop colspan=2>Function lua_pop (lua_state:Byte Ptr, n:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pop">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushboolean>
+<tr><td class=doctop colspan=2>Function lua_pushboolean (lua_state:Byte Ptr, b:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushboolean">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushcclosure>
+<tr><td class=doctop colspan=2>Function lua_pushcclosure (lua_state:Byte Ptr, fn:Int(ls:Byte Ptr), n:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushcclosure">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushcfunction>
+<tr><td class=doctop colspan=2>Function lua_pushcfunction (lua_state:Byte Ptr, fn:Int(ls:Byte Ptr))</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushcfunction">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushinteger>
+<tr><td class=doctop colspan=2>Function lua_pushinteger (lua_state:Byte Ptr, n:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushinteger">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushlightuserdata>
+<tr><td class=doctop colspan=2>Function lua_pushlightuserdata (lua_state:Byte Ptr, p:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushlightuserdata">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushlstring>
+<tr><td class=doctop colspan=2>Function lua_pushlstring (lua_state:Byte Ptr, s:Byte Ptr, size:Int)    ' without any conversion!</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushlstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushnil>
+<tr><td class=doctop colspan=2>Function lua_pushnil (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushnil">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushnumber>
+<tr><td class=doctop colspan=2>Function lua_pushnumber (lua_state:Byte Ptr, n:Double)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushnumber">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushstring>
+<tr><td class=doctop colspan=2>Function lua_pushstring (lua_state:Byte Ptr, s$z)                         ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushthread>
+<tr><td class=doctop colspan=2>Function lua_pushthread:Int (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushthread">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_pushvalue>
+<tr><td class=doctop colspan=2>Function lua_pushvalue (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_pushvalue">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_rawequal>
+<tr><td class=doctop colspan=2>Function lua_rawequal:Int (lua_state:Byte Ptr, index1:Int, index2:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawequal">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_rawget>
+<tr><td class=doctop colspan=2>Function lua_rawget (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawget">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_rawgeti>
+<tr><td class=doctop colspan=2>Function lua_rawgeti (lua_state:Byte Ptr, index:Int, n:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawgeti">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_rawset>
+<tr><td class=doctop colspan=2>Function lua_rawset (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawset">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_rawseti>
+<tr><td class=doctop colspan=2>Function lua_rawseti (lua_state:Byte Ptr, index:Int, n:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_rawseti">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_register>
+<tr><td class=doctop colspan=2>Function lua_register (lua_state:Byte Ptr, name:String, f:Int(ls:Byte Ptr))</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_register">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_remove>
+<tr><td class=doctop colspan=2>Function lua_remove (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_remove">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_replace>
+<tr><td class=doctop colspan=2>Function lua_replace (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_replace">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_resume>
+<tr><td class=doctop colspan=2>Function lua_resume:Int (lua_state:Byte Ptr, narg:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_resume">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_setallocf>
+<tr><td class=doctop colspan=2>Function lua_setallocf (lua_state:Byte Ptr, f:Byte Ptr(ud:Byte Ptr, p:Byte Ptr, osize:Int, nsize:Int), ud:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setallocf">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_setfenv>
+<tr><td class=doctop colspan=2>Function lua_setfenv:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setfenv">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_setfield>
+<tr><td class=doctop colspan=2>Function lua_setfield (lua_state:Byte Ptr, index:Int, k$z)              ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setfield">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_setglobal>
+<tr><td class=doctop colspan=2>Function lua_setglobal (lua_state:Byte Ptr, name:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setglobal">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_sethook>
+<tr><td class=doctop colspan=2>Function lua_sethook:Int (lua_state:Byte Ptr, f(ls:Byte Ptr,ar:lua_Debug Ptr), mask:Int, count:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_sethook">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_setlocal>
+<tr><td class=doctop colspan=2>Function lua_setlocal$z (lua_state:Byte Ptr, ar:lua_Debug Ptr, n:Int)     ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setlocal">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_setmetatable>
+<tr><td class=doctop colspan=2>Function lua_setmetatable:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setmetatable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_settable>
+<tr><td class=doctop colspan=2>Function lua_settable (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_settable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_settop>
+<tr><td class=doctop colspan=2>Function lua_settop (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_settop">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_setupvalue>
+<tr><td class=doctop colspan=2>Function lua_setupvalue$z (lua_state:Byte Ptr, funcindex:Int, n:Int)        ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_setupvalue">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_status>
+<tr><td class=doctop colspan=2>Function lua_status:Int (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_status">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_toboolean>
+<tr><td class=doctop colspan=2>Function lua_toboolean:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_toboolean">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_tocfunction>
+<tr><td class=doctop colspan=2>Function lua_tocfunction:Byte Ptr (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tocfunction">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_tointeger>
+<tr><td class=doctop colspan=2>Function lua_tointeger:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tointeger">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_tolstring>
+<tr><td class=doctop colspan=2>Function lua_tolstring:Byte Ptr (lua_state:Byte Ptr, index:Int, size:Int Ptr) ' without any conversion!</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tolstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_tonumber>
+<tr><td class=doctop colspan=2>Function lua_tonumber:Double (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tonumber">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_topointer>
+<tr><td class=doctop colspan=2>Function lua_topointer:Byte Ptr (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_topointer">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_tostring>
+<tr><td class=doctop colspan=2>Function lua_tostring:String (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tostring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_tothread>
+<tr><td class=doctop colspan=2>Function lua_tothread:Byte Ptr (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_tothread">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_touserdata>
+<tr><td class=doctop colspan=2>Function lua_touserdata:Byte Ptr (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_touserdata">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_type>
+<tr><td class=doctop colspan=2>Function lua_type:Int (lua_state:Byte Ptr, index:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_type">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_typename>
+<tr><td class=doctop colspan=2>Function lua_typename$z (lua_state:Byte Ptr, tp:Int)                      ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_typename">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_xmove>
+<tr><td class=doctop colspan=2>Function lua_xmove                (fromState:Byte Ptr, toState:Byte Ptr, n:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_xmove">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=lua_yield>
+<tr><td class=doctop colspan=2>Function lua_yield:Int (lua_state:Byte Ptr, nresults:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#lua_yield">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_addchar>
+<tr><td class=doctop colspan=2>Function luaL_addchar (B:Byte Ptr, c:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addchar">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_addlstring>
+<tr><td class=doctop colspan=2>Function luaL_addlstring (B:Byte Ptr, s:Byte Ptr, l:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addlstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_addsize>
+<tr><td class=doctop colspan=2>Function luaL_addsize (B:Byte Ptr, size:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addsize">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_addstring>
+<tr><td class=doctop colspan=2>Function luaL_addstring (B:Byte Ptr, s$z)                                 ' no ~0 allowed!</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_addvalue>
+<tr><td class=doctop colspan=2>Function luaL_addvalue (B:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_addvalue">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_argcheck>
+<tr><td class=doctop colspan=2>Function luaL_argcheck (lua_state:Byte Ptr, cond:Int, narg:Int, extramsg:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_argcheck">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_argerror>
+<tr><td class=doctop colspan=2>Function luaL_argerror:Int (lua_state:Byte Ptr, narg:Int, extramsg$z)     ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_argerror">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_buffinit>
+<tr><td class=doctop colspan=2>Function luaL_buffinit (lua_state:Byte Ptr, B:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_buffinit">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_callmeta>
+<tr><td class=doctop colspan=2>Function luaL_callmeta:Int (lua_state:Byte Ptr, obj:Int, e$z)             ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_callmeta">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checkany>
+<tr><td class=doctop colspan=2>Function luaL_checkany (lua_state:Byte Ptr, narg:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkany">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checkint>
+<tr><td class=doctop colspan=2>Function luaL_checkint:Int (lua_state:Byte Ptr, narg:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkint">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checkinteger>
+<tr><td class=doctop colspan=2>Function luaL_checkinteger:Int (lua_state:Byte Ptr, narg:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkinteger">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checklong>
+<tr><td class=doctop colspan=2>Function luaL_checklong:Long (lua_state:Byte Ptr, narg:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checklong">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checklstring>
+<tr><td class=doctop colspan=2>Function luaL_checklstring:Byte Ptr (lua_state:Byte Ptr, narg:Int, size:Int Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checklstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checknumber>
+<tr><td class=doctop colspan=2>Function luaL_checknumber:Double (lua_state:Byte Ptr, narg:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checknumber">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checkstack>
+<tr><td class=doctop colspan=2>Function luaL_checkstack (lua_state:Byte Ptr, sz:Int, msg$z)                     ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkstack">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checkstring>
+<tr><td class=doctop colspan=2>Function luaL_checkstring:String (lua_state:Byte Ptr, narg:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checktype>
+<tr><td class=doctop colspan=2>Function luaL_checktype (lua_state:Byte Ptr, narg:Int, t:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checktype">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_checkudata>
+<tr><td class=doctop colspan=2>Function luaL_checkudata:Byte Ptr (lua_state:Byte Ptr, narg:Int, tname$z)        ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_checkudata">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_dofile>
+<tr><td class=doctop colspan=2>Function luaL_dofile:Int (lua_state:Byte Ptr, filename:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_dofile">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_dostring>
+<tr><td class=doctop colspan=2>Function luaL_dostring:Int (lua_state:Byte Ptr, str:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_dostring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_getmetafield>
+<tr><td class=doctop colspan=2>Function luaL_getmetafield:Int (lua_state:Byte Ptr, obj:Int, e$z)                ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_getmetafield">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_getmetatable>
+<tr><td class=doctop colspan=2>Function luaL_getmetatable (lua_state:Byte Ptr, tname:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_getmetatable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_gsub>
+<tr><td class=doctop colspan=2>Function luaL_gsub$z (lua_state:Byte Ptr, s$z, p$z, r$z)                         ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_gsub">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_loadbuffer>
+<tr><td class=doctop colspan=2>Function luaL_loadbuffer:Int (lua_state:Byte Ptr, buff:Byte Ptr, sz:Int, name$z) ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_loadbuffer">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_loadfile>
+<tr><td class=doctop colspan=2>Function luaL_loadfile:Int (lua_state:Byte Ptr, filename$z)                      ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_loadfile">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_loadstring>
+<tr><td class=doctop colspan=2>Function luaL_loadstring:Int (lua_state:Byte Ptr, s$z)                           ' no ~0 allowed!</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_loadstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_newmetatable>
+<tr><td class=doctop colspan=2>Function luaL_newmetatable:Int (lua_state:Byte Ptr, tname$z)                     ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_newmetatable">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_newstate>
+<tr><td class=doctop colspan=2>Function luaL_newstate:Byte Ptr ()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_newstate">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_openlibs>
+<tr><td class=doctop colspan=2>Function luaL_openlibs (lua_state:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_openlibs">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_optint>
+<tr><td class=doctop colspan=2>Function luaL_optint:Int (lua_state:Byte Ptr, narg:Int, d:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optint">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_optinteger>
+<tr><td class=doctop colspan=2>Function luaL_optinteger:Int (lua_state:Byte Ptr, narg:Int, d:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optinteger">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_optlong>
+<tr><td class=doctop colspan=2>Function luaL_optlong:Long (lua_state:Byte Ptr, narg:Int, d:Long)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optlong">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_optlstring>
+<tr><td class=doctop colspan=2>Function luaL_optlstring:Byte Ptr (lua_state:Byte Ptr, narg:Int, d$z, size:Int Ptr) ' no ~0 expected in "d"</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optlstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_optnumber>
+<tr><td class=doctop colspan=2>Function luaL_optnumber:Double (lua_state:Byte Ptr, narg:Int, d:Double)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optnumber">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_optstring>
+<tr><td class=doctop colspan=2>Function luaL_optstring:String (lua_state:Byte Ptr, narg:Int, d:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_optstring">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_prepbuffer>
+<tr><td class=doctop colspan=2>Function luaL_prepbuffer:Byte Ptr (B:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_prepbuffer">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_pushresult>
+<tr><td class=doctop colspan=2>Function luaL_pushresult (B:Byte Ptr)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_pushresult">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_ref>
+<tr><td class=doctop colspan=2>Function luaL_ref:Int (lua_state:Byte Ptr, t:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_ref">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_register>
+<tr><td class=doctop colspan=2>Function luaL_register (lua_state:Byte Ptr, libname$z, l:lua_Reg Ptr)            ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_register">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_typename>
+<tr><td class=doctop colspan=2>Function luaL_typename:String (lua_state:Byte Ptr, idx:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_typename">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_typerror>
+<tr><td class=doctop colspan=2>Function luaL_typerror:Int (lua_state:Byte Ptr, narg:Int, tname$z)               ' no ~0 expected</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_typerror">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_unref>
+<tr><td class=doctop colspan=2>Function luaL_unref (lua_state:Byte Ptr, t:Int, ref:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_unref">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=luaL_where>
+<tr><td class=doctop colspan=2>Function luaL_where (lua_state:Byte Ptr, lvl:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>see <a href="../../../../mod/pub.mod/lua.mod/lua-5.1.4/doc/manual.html#luaL_where">Lua Reference Manual</a></td></tr>
+</table>
+<br>
+<h2 id=modinfo>Module Information</h2>
+<table width=100%>
+<tr><th width=1%>Version</th><td>1.0</td></tr>
+<tr><th width=1%>Author</th><td>Zeke</td></tr>
+<tr><th width=1%>History</th><td>1.00 Release</td></tr>
+<tr><th width=1%>History</th><td>First release</td></tr>
+</body></html>
